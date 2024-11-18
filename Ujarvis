@@ -1,0 +1,192 @@
+public static void main(String[] args) {
+		
+		Scanner sc = new Scanner (System.in);
+		
+		double precoArroz=0, precoFeijao=0, precoBovino=0, precoFrango=0, 
+				precoSuino=0;  //Variaveis para o valor que foi pago aos igredientes.
+		double qntArroz=0, qntFeijao=0, qntBovino=0, qntFrango=0, 
+				qntSuino=0;  //Variavel para a quantidade de item comprados.
+		double custoPorcaoArroz=0, custoPorcaoFeijao=0, custoPorcaoBovino=0, 
+				custoPorcaoFrango=0, custoPorcaoSuino=0;
+		double porcaoArroz=150, porcaoFeijao=100, porcaoBovino=100, porcaoFrango=100, porcaoSuino=100;
+		double custoTotalMarmita01=0, custoTotalMarmita02=0, custoTotalMarmita03=0, 
+				custoTotalTodasMarmitas=0, maxTotalMarmitas=0, valorVenda=15,
+				lucroTotal=0;
+		double custoMarmita01=0, custoMarmita02=0, custoMarmita03=0;
+		int maxMarmita01=0, maxMarmita02=0, maxMarmita03=0;
+
+		// ENTRADA DE DADOS +
+		// INFORMAÇÃO DE NAO SERÁ POSSIVEL CASO ALGUMA QUANTIDADE SEJA IGUAL A 0Kg.    
+		
+		do {
+		System.out.print("Informe o valor do Arroz: R$" );
+		precoArroz = sc.nextDouble();
+		System.out.print("Informe a quantidade de Arroz comprado (Kg): " );
+		qntArroz = sc.nextDouble();
+			if (qntArroz < 0.15) {
+				System.out.println("Valores invalidos, digite novamente.");
+		}
+			}while (precoArroz == 0 || qntArroz < 0.15);
+		
+		do {
+		System.out.print("Informe o valor do Feijao: R$" );
+		precoFeijao = sc.nextDouble();
+		System.out.print("Informe a quantidade de Feijao comprado (Kg): " );
+		qntFeijao = sc.nextDouble();
+			if (qntFeijao < 0.10) {
+				System.out.println("Valores invalidos, digite novamente.");
+		}
+			}while (precoFeijao == 0 || qntFeijao < 0.10);
+		
+		System.out.print("Informe o valor da carne Bovina: R$" );
+		precoBovino = sc.nextDouble();
+		System.out.print("Informe a quantidade de carne Bovina comprada (Kg): " );
+		qntBovino = sc.nextDouble();
+			if (qntBovino < 0.15) {
+				System.out.println("Não será possivel produzir as marmitas de carne Bovina pois a quantidade inserida não é suficiente para produção.");
+		}
+		
+		System.out.print("Informe o valor do Frango: R$" );
+		precoFrango = sc.nextDouble();
+		System.out.print("Informe a quantidade de Frango comprado (Kg): " );
+		qntFrango = sc.nextDouble();
+			if (qntFrango < 0.15) {
+				System.out.println("Não será possivel produzir as marmitas de Frango pois a quantidade inserida não é suficiente para produção.");
+		}
+		
+		System.out.print("Informe o valor da carne Suina : R$" );
+		precoSuino = sc.nextDouble();
+		System.out.print("Informe a quantidade de carne Suina comprada (Kg): " );
+		qntSuino = sc.nextDouble();
+			if (qntSuino < 0.15) {
+				System.out.println("Não será possivel produzir as marmitas de carne Suina pois a quantidade inserida não é suficiente para produção.");
+		}
+		
+		// CONVERTENDO Kg em GRAMAS.
+		qntArroz *= 1000;
+		qntFeijao *= 1000;
+		qntBovino *= 1000;
+		qntFrango *= 1000;
+		qntSuino *= 1000;
+				
+		//  CALCULO DE PREÇO DE IGREDIENTE POR PORÇÃO.
+		custoPorcaoArroz = (precoArroz/qntArroz)*porcaoArroz;
+		custoPorcaoFeijao = (precoFeijao/qntFeijao)*porcaoFeijao;
+		custoPorcaoBovino = (precoBovino/qntBovino)*porcaoBovino;
+		custoPorcaoFrango = (precoFrango/qntFrango)*porcaoFrango;
+		custoPorcaoSuino = (precoSuino/qntSuino)*porcaoSuino;
+		
+		// CALCULO DE CUSTO DAS MARMITAS
+		custoMarmita01 = custoPorcaoArroz + custoPorcaoFeijao + custoPorcaoBovino;
+		custoMarmita02 = custoPorcaoArroz + custoPorcaoFeijao + custoPorcaoFrango;
+		custoMarmita03 = custoPorcaoArroz + custoPorcaoFeijao + custoPorcaoSuino;
+		
+		System.out.printf("%n");
+		
+		// SE TODOS VALORES DAS MARMITAS TEREM ULTRAPASSADO R$9,00 NÃO SERÁ PRODUZIDO NENHUMA.
+					if (custoMarmita01 > 9 && custoMarmita02 > 9 && custoMarmita03 >9)
+						System.out.println("O custo das marmitas ultrapassou o teto máximo de 9 R$ portanto não há como produzir.");
+		
+		// LOOP QUE DIMINUI A QUANTIDADE DE CADA IGREDIENTE MONTANDO CADA MARMITA EM SEQUENCIA.
+				while (qntArroz >= 150 && qntFeijao >= 100) { 
+					if (qntBovino>= 100 && custoMarmita01 <= 9) { 
+						qntArroz -= 150; 
+						qntFeijao -= 100; 
+						qntBovino -= 100; 
+						maxMarmita01++; 
+					} 
+						if (qntArroz < 150 || qntFeijao < 100) { break; 
+						}
+					if (qntFrango >= 100 && custoMarmita02 <= 9) { 
+						qntArroz -= 150; 
+						qntFeijao -= 100; 
+						qntFrango -= 100; 
+						maxMarmita02++; 
+						} 
+						if (qntArroz < 150 || qntFeijao < 100) { break;
+						}
+					if (qntSuino >= 100 && custoMarmita03 <= 9) { 
+						qntArroz -= 150; 
+						qntFeijao -= 100; 
+						qntSuino -= 100; 
+						maxMarmita03++; 
+						} 
+						if (qntArroz < 150 || qntFeijao < 100) { break;
+						}
+					} 
+				
+				// CUSTO TOTAL DE CADA PRATO
+				custoTotalMarmita01 = maxMarmita01*custoMarmita01;
+				custoTotalMarmita02 = maxMarmita02*custoMarmita02;		
+				custoTotalMarmita03 = maxMarmita03*custoMarmita03;	
+				
+				// Custo total de produção das Marmitas.
+				if (maxMarmita01>0 && maxMarmita02>0 && maxMarmita03>0) {
+					custoTotalTodasMarmitas = custoTotalMarmita01+custoTotalMarmita02+custoTotalMarmita03;
+				}
+				if (maxMarmita01>0 && maxMarmita02>0 && maxMarmita03==0) {
+					custoTotalTodasMarmitas = custoTotalMarmita01+custoTotalMarmita02;
+				}
+				if (maxMarmita01>0 && maxMarmita02==0 && maxMarmita03==0) {
+					custoTotalTodasMarmitas = custoTotalMarmita01;
+				}
+				if (maxMarmita01==0 && maxMarmita02>0 && maxMarmita03>0) {
+					custoTotalTodasMarmitas = custoTotalMarmita02+custoTotalMarmita03;
+				}
+				if (maxMarmita01==0 && maxMarmita02==0 && maxMarmita03>0) {
+					custoTotalTodasMarmitas = custoTotalMarmita03;
+				} 
+				if (maxMarmita01==0 && maxMarmita02>0 && maxMarmita03==0){
+					custoTotalTodasMarmitas = custoTotalMarmita02;
+				}
+				
+				
+				// CALCULO DO TOTAL DE MARMITAS QUE FORAM PRODUZIDAS.
+				maxTotalMarmitas = maxMarmita01+maxMarmita02+maxMarmita03;
+				
+				// CALCULO DOS LUCROS
+				valorVenda *= maxTotalMarmitas;
+				lucroTotal = valorVenda - custoTotalTodasMarmitas;				
+		
+		// SE PARA VERIFICAR SE SERA POSSIVEL PRODUZIR AS MARMITAS & SE E SE NAO PARA IMPRIMIR QUANTIDADE E CUSTO DAS MARMITAS
+		System.out.println("O custo de cada Marmita de carne Bovino foi de: R$"+custoMarmita01);
+			if (custoMarmita01 > 9) {
+				System.out.println("Devido o valor ter ultrapassado R$ 9,00.");
+			}if (maxMarmita01 > 0) {
+					System.out.println("Total de marmitas produzidas de carne Bovina: " + maxMarmita01 +"\n"
+									+ "Total de custo de todas marmitas de carne Bovina: R$"+custoTotalMarmita01); 
+					} else {
+						System.out.println("Não teve produção da marmita de carne Bovina.");
+		}
+			System.out.printf("%n");
+		System.out.println("O custo de cada Marmita de Frango foi de: R$"+custoMarmita02);
+			if (custoMarmita02 > 9) {
+				System.out.println("Devido o valor ter ultrapassado R$ 9,00.");
+			}if (maxMarmita02 > 0) {
+					System.out.println("Total de marmitas produzidas com carne Frango: " + maxMarmita02+"\n"
+							+ "Total de custo de todas marmitas com Frango: R$"+custoTotalMarmita02);   
+					} else {
+						System.out.println("Não teve produção da marmita de Frango.");
+					}
+			System.out.printf("%n");
+		System.out.println("O custo da Marmita de carne Suina foi de: R$"+custoMarmita03);
+			if (custoMarmita03 > 9) {
+				System.out.println("Devido o valor ter ultrapassado R$ 9,00.");
+			}if (maxMarmita03 > 0) {
+					System.out.println("Total de marmitas produzidas de carne Suina: " + maxMarmita03+"\n"
+					+ "Total de custo de todas marmitas de carne Suina: R$"+custoTotalMarmita03);  
+					} else {
+						System.out.println("Não teve produção da marmita de carne Suina.");
+			}
+			System.out.printf("%n");
+		// IMPRIMI AS INFORMAÇÕES FINAIS. 
+		System.out.println("Total de marmitas produzidas: "+maxTotalMarmitas);
+		System.out.printf("Total de custo de todas as marmitas produzidas: R$%.2f%n",custoTotalTodasMarmitas);
+		System.out.printf("Lucro total de marmitas: R$%.2f%n",lucroTotal);
+		System.out.println("Sobras de arroz: " + qntArroz + " g"); 
+		System.out.println("Sobras de feijão: " + qntFeijao + " g"); 
+		System.out.println("Sobras da carne Bovino: " + qntBovino + " g"); 
+		System.out.println("Sobras do Frango: " + qntFrango + " g"); 
+		System.out.println("Sobras da carne Suino: " + qntSuino + " g"); 
+		
+		sc.close();
